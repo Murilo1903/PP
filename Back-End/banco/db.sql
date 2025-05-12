@@ -38,6 +38,13 @@ CREATE TABLE Postagens (
 	FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
 
+CREATE TABLE curtidasPostagens (
+	id_registroCurtidas INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_postagem INT NOT NULL,
+	FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
+	FOREIGN KEY (id_postagem) REFERENCES Postagens(id_postagem)
+);
 
 CREATE TABLE comentariosPostagens(
     id_comentarioPOST INT AUTO_INCREMENT PRIMARY KEY,
@@ -48,6 +55,15 @@ CREATE TABLE comentariosPostagens(
 	FOREIGN KEY (id_postagem) REFERENCES Postagens(id_postagem),
 	FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario)
 );
+
+CREATE TABLE curtidasComentarios (
+	id_registroCurtidas INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_comentarioPOST INT NOT NULL,
+	FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
+	FOREIGN KEY (id_comentarioPOST) REFERENCES comentariosPostagens(id_comentarioPOST)
+);
+
 
 CREATE TABLE Comunidades(
 	id_comunidade INT AUTO_INCREMENT PRIMARY KEY,
@@ -78,6 +94,14 @@ CREATE TABLE postComunidade(
 	FOREIGN KEY (id_comunidade) REFERENCES Comunidades(id_comunidade)
 );
 
+CREATE TABLE curtidasComunidade (
+	id_registroCurtidas INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_postComunidade INT NOT NULL,
+	FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
+	FOREIGN KEY (id_postComunidade) REFERENCES postComunidade(id_postComunidade)
+);
+
 CREATE TABLE Comentarios_Comunidades(
 	id_comentarioComunidade INT AUTO_INCREMENT PRIMARY KEY,
 	id_postComunidade INT NOT NULL,
@@ -86,6 +110,14 @@ CREATE TABLE Comentarios_Comunidades(
 	enviado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
 	FOREIGN KEY (id_postComunidade) REFERENCES postComunidade(id_postComunidade)
+);
+
+CREATE TABLE curtidasComunidade_comentario (
+	id_registroCurtidas INT AUTO_INCREMENT PRIMARY KEY,
+    id_usuario INT NOT NULL,
+    id_comentarioComunidade INT NOT NULL,
+	FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
+	FOREIGN KEY (id_comentarioComunidade) REFERENCES Comentarios_Comunidades(id_comentarioComunidade)
 );
 
 CREATE TABLE Mensagens (
